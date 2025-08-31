@@ -14,10 +14,15 @@ if (!['dev', 'prod'].includes(mode)) {
 export default {
   nodeResolve: {exportConditions: mode === 'dev' ? ['development'] : []},
   preserveSymlinks: true,
+  appIndex: 'index.html',
+
+  // 👇 This tells the dev server to always serve index.html
+  // so routes like /employees/3?view=list survive refresh
+  spa: true,
+
   plugins: [
     legacyPlugin({
       polyfills: {
-        // Manually imported in index.html file
         webcomponents: false,
       },
     }),
