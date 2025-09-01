@@ -84,7 +84,7 @@ Installation
 
 ● Start the development server:
 
-  npm run serve
+  npm start
 
 Open your browser at http://localhost:8000
 
