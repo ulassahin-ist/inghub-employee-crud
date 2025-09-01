@@ -30,7 +30,7 @@ export const translations = {
     confirmdel1: 'Selected Employee record of ',
     confirmdel2: ' will be deleted.',
     confirmEdit: 'Do you want to edit the record of :',
-    confirmEdit: 'Do you want to save the changes?',
+    confirmEdit2: 'Do you want to save the changes?',
     confirmAdd: 'Do you want to add :',
     areYouSure: 'Are you sure?',
     proceed: 'Proceed',
