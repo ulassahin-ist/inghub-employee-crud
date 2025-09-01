@@ -72,18 +72,18 @@ Coverage exceeds 85%, ensuring reliability.
 
 Installation
 
-Clone the repository:
+●Clone the repository:
 
-git clone https://github.com/ulassahin-ist/inghub-employee-crud
-cd inghub-employee-crud
+        git clone https://github.com/ulassahin-ist/inghub-employee-crud
+        cd inghub-employee-crud
 
-Install dependencies:
+●Install dependencies:
 
-npm install
+        npm install
 
-Start the development server:
+●Start the development server:
 
-npm start serve
+        npm start serve
 
 Open your browser at http://localhost:8000
 
