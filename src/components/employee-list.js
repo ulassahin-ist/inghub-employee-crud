@@ -397,14 +397,12 @@ export class EmployeeList extends LitElement {
 
   editEmployee(emp) {
     this.employeeSelected = emp;
-    console.log(this.employeeSelected);
     this.confirmAction = 'edit';
     this.showConfirmModal = true;
   }
 
   requestDelete(emp) {
     this.employeeSelected = emp;
-    console.log(this.employeeSelected);
     this.confirmAction = 'delete';
     this.showConfirmModal = true;
   }
