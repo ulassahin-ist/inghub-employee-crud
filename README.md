@@ -70,6 +70,25 @@ Coverage exceeds 85%, ensuring reliability.
 
 \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
 
+Installation
+
+Clone the repository:
+
+git clone https://github.com/ulassahin-ist/inghub-employee-crud
+cd inghub-employee-crud
+
+Install dependencies:
+
+npm install
+
+Start the development server:
+
+npm start serve
+
+Open your browser at http://localhost:8000
+
+\- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
+
 Features
 
 Add, Edit, and View Employees
@@ -111,25 +130,6 @@ Modular architecture using LitElement.
 Components: EmployeeForm, EmployeeList, NavigationMenu.
 
 Utility modules for storage, formatting, and translations.
-
-\- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
-
-Installation
-
-Clone the repository:
-
-git clone https://github.com/<username>/<repo>.git
-cd <repo>
-
-Install dependencies:
-
-npm install
-
-Start the development server:
-
-npm start
-
-Open your browser at http://localhost:3000.
 
 \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
 
