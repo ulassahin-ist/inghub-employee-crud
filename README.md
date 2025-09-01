@@ -70,11 +70,12 @@ Coverage exceeds 85%, ensuring reliability.
 
 \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
 
-●● Installation ●●
+Installation
 
 ● Clone the repository:
 
   git clone https://github.com/ulassahin-ist/inghub-employee-crud
+  
   cd inghub-employee-crud
 
 ● Install dependencies:
