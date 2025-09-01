@@ -5,7 +5,6 @@ import './components/navigation-menu.js';
 import './components/employee-list.js';
 import './components/employee-form.js';
 
-// Import storage utils to ensure localStorage is initialized
 import './utils/storage.js';
 
 class AppShell extends LitElement {
@@ -24,14 +23,13 @@ class AppShell extends LitElement {
   firstUpdated() {
     const outlet = this.renderRoot.querySelector('#outlet');
     const router = new Router(outlet);
-    // app.js firstUpdated()
     window.router = router;
 
     router.setRoutes([
       {path: '/', redirect: '/employees'},
       {path: '/employees', component: 'employee-list'},
-      {path: '/employees/new', component: 'employee-form'}, // add
-      {path: '/employees/:id', component: 'employee-form'}, // edit
+      {path: '/employees/new', component: 'employee-form'},
+      {path: '/employees/:id', component: 'employee-form'},
       {path: '(.*)', redirect: '/employees'},
     ]);
   }

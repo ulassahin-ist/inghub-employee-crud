@@ -224,13 +224,21 @@ export class EmployeeList extends LitElement {
       font-weight: 400;
       font-size: 14px;
     }
-    .pagination button.active {
+
+    .nav-icon {
+      width: 20px;
+      height: 32px;
       color: var(--primary);
+    }
+    .pagination button.active {
+      background: var(--primary);
+      color: white;
       cursor: default;
       font-size: 16px;
     }
+    .pagination button:disabled svg,
     .pagination button:disabled {
-      color: gray;
+      color: gray !important;
       cursor: default;
     }
     .pagination span {
@@ -484,12 +492,12 @@ export class EmployeeList extends LitElement {
         ?disabled=${this.currentPage === 1}
       >
         <svg
+          class="nav-icon"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="size-6"
         >
           <path
             stroke-linecap="round"
@@ -530,12 +538,12 @@ export class EmployeeList extends LitElement {
         ?disabled=${this.currentPage === totalPages}
       >
         <svg
+          class="nav-icon"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="size-6"
         >
           <path
             stroke-linecap="round"
