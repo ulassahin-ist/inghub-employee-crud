@@ -1,5 +1,6 @@
 import {LitElement, html, css} from 'lit';
 import {Router} from '@vaadin/router';
+
 import {translations} from '../utils/language.js';
 import {AppState} from '../utils/storage.js';
 
