@@ -138,7 +138,7 @@ export class EmployeeForm extends LitElement {
       bottom: 24px;
       left: 50%;
       transform: translateX(-50%);
-      background: #1976d2;
+      background: var(--primary);
       color: white;
       padding: 14px 28px;
       border-radius: 10px;

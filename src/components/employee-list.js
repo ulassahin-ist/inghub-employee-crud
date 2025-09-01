@@ -2,6 +2,7 @@ import {LitElement, html, css} from 'lit';
 import {AppState, getEmployees, saveEmployees} from '../utils/storage.js';
 import {Router} from '@vaadin/router';
 
+//deneme
 export class EmployeeList extends LitElement {
   static properties = {
     employees: {type: Array},
