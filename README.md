@@ -2,7 +2,7 @@ Employee Management Web App
 
 A modern, responsive, and multilingual employee management system built with LitElement, JavaScript, and Vaadin Router. Designed to be intuitive for internal HR or admin use, featuring real-time validation, toast notifications, and confirm modals.
 
-\- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
+\- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
 
 This Employee Management Web Application fully implements all the requested features and requirements:
 
@@ -68,26 +68,26 @@ This Employee Management Web Application fully implements all the requested feat
 Coverage exceeds 85%, ensuring reliability.
 
 
-\- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
+\- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
 
-Installation
+●● Installation ●●
 
-●Clone the repository:
+● Clone the repository:
 
-        git clone https://github.com/ulassahin-ist/inghub-employee-crud
-        cd inghub-employee-crud
+  git clone https://github.com/ulassahin-ist/inghub-employee-crud
+  cd inghub-employee-crud
 
-●Install dependencies:
+● Install dependencies:
 
-        npm install
+  npm install
 
-●Start the development server:
+● Start the development server:
 
-        npm start serve
+  npm start serve
 
 Open your browser at http://localhost:8000
 
-\- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
+\- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
 
 Features
 
@@ -131,7 +131,7 @@ Components: EmployeeForm, EmployeeList, NavigationMenu.
 
 Utility modules for storage, formatting, and translations.
 
-\- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
+\- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
 
 Usage
 
@@ -149,7 +149,7 @@ Toast messages will show for errors or success.
 
 Confirmation modals appear before saving changes.
 
-\- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
+\- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
 
 Technical Highlights
 
