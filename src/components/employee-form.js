@@ -277,7 +277,11 @@ export class EmployeeForm extends LitElement {
       }
     }
     @media (max-width: 600px) {
+       :host {
+        padding: 0;
+      }
       form {
+        margin-top: 20px;
         grid-template-columns: 1fr;
         padding: 50px 20px 0;
       }
@@ -288,7 +292,6 @@ export class EmployeeForm extends LitElement {
         width: 100%;
         margin: 0;
       }
-
       .actions {
         margin-top: 30px;
         flex-direction: column;
