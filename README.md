@@ -6,7 +6,7 @@ A modern, responsive, and multilingual employee management system built with Lit
 
 This Employee Management Web Application fully implements all the requested features and requirements:
 
-Employee Records Listing
+● Employee Records Listing
 
         Employees are displayed in a table view with pagination and search functionality.
 
@@ -14,7 +14,7 @@ Employee Records Listing
 
         The listing is fully responsive for both desktop and mobile.
 
-Add New Employee
+● Add New Employee
 
         A reusable form allows adding a new employee with all required fields: First Name, Last Name, Employment/Birth Dates, Phone, Email, Department, and Position.
 
@@ -22,7 +22,7 @@ Add New Employee
 
         After submission, users are redirected back to the employee list.
 
-Edit Existing Employee
+● Edit Existing Employee
 
         The same form is used for editing, prefilled with the employee’s data.
 
@@ -30,37 +30,37 @@ Edit Existing Employee
 
         Validations are applied consistently to maintain data integrity.
 
-Delete Employee
+● Delete Employee
 
         Deleting an employee prompts a confirmation modal to prevent accidental deletions.
 
         The list updates immediately after deletion.
 
-Navigation & Routing
+● Navigation & Routing
 
         A dedicated navigation menu allows switching between pages.
 
         Vaadin Router handles routing for /employees, /employees/new, and /employees/:id.
 
-State Management & Persistence
+● State Management & Persistence
 
         Employee data is stored in browser memory using a custom storage utility.
 
         Changes persist during the session without a backend.
 
-Localization Support
+● Localization Support
 
         Components are fully multilingual (English and Turkish).
 
         The application dynamically reads the lang attribute from the root HTML.
 
-Responsive Design
+● Responsive Design
 
         All pages and components adapt seamlessly to desktop, tablet, and mobile screens.
 
         No CSS frameworks like Bootstrap were used.
 
-Unit Testing
+● Unit Testing
 
         Detailed unit tests cover all components and functions.
 
