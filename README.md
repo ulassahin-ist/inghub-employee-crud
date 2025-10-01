@@ -1,85 +1,120 @@
-Employee Management Form
+Employee Management Web App
 
-A simple web component built with Lit for adding and editing employee information. Includes validation, responsive design, and toast notifications.
+A modern, responsive, and multilingual employee management system built with LitElement, JavaScript, and Vaadin Router. Designed to be intuitive for internal HR or admin use, featuring real-time validation, toast notifications, and confirm modals.
 
-################################################
+\- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
 
 Features
 
-Add and edit employees.
+Add, Edit, and View Employees
 
-Form validation with inline error messages.
+Fully editable employee form with real-time validation.
 
-Responsive layout for desktop and mobile.
+Prevents duplicate phone numbers and emails.
 
-Toast notifications for success messages.
+Supports dynamic editing with confirmation modal prompts.
 
-Auto-formatting for dates and phone numbers.
+Toast Notifications
 
-Easy to extend (departments, positions, etc.).
+Elegant animated notifications for success or errors.
 
-################################################
+Animations restart reliably for consecutive events.
+
+Multilingual Support
+
+Fully translatable interface using a centralized translations module.
+
+Language switching updates all UI text dynamically.
+
+Responsive Design
+
+Grid-based layout adapts to desktop, tablet, and mobile devices.
+
+Modern, clean UI with subtle shadows and rounded elements.
+
+Persistent Storage
+
+Employees saved in browser local storage (can be swapped for a backend later).
+
+Data integrity with duplicate prevention and validation.
+
+Clean Component Structure
+
+Modular architecture using LitElement.
+
+Components: EmployeeForm, EmployeeList, NavigationMenu.
+
+Utility modules for storage, formatting, and translations.
+
+\- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
 
 Installation
 
 Clone the repository:
 
-git clone https://github.com/your-username/employee-form.git
+git clone https://github.com/<username>/<repo>.git
+cd <repo>
 
-Install dependencies (if using a bundler or dev server):
+Install dependencies:
 
 npm install
 
-Run your development server (example using vite):
+Start the development server:
 
-npm run dev
+npm start
 
-################################################
+Open your browser at http://localhost:3000.
+
+\- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
 
 Usage
 
-Navigate to /employees/new to add a new employee.
+Navigate to Employees → Add Employee to create a new employee.
 
-Navigate to /employees/{id} to edit an existing employee.
+Fields are validated in real-time:
 
-Required fields: First Name, Last Name, Phone, Email, Department, Position.
+Phone must be 12+ digits.
 
-Optional fields: Employment Date, Birth Date, Notes.
+Email must be valid.
 
-################################################
+Required fields: first name, last name, phone, email, department, position.
 
-Project Structure
-├── .vscode
-├── src
-│ ├── assets
-│ │ ├── images
-│ ├── components
-│ ├── css
-│ ├── data
-│ ├── utils
-├── test
-├── test-results
+Toast messages will show for errors or success.
 
-################################################
+Confirmation modals appear before saving changes.
 
-Dependencies
+\- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \- \-
 
-Lit
-– For building web components.
+Technical Highlights
 
-Vaadin Router
-– For client-side routing.
+Toast Handling
 
-################################################
+Uses a temporary state reset (showToast) to ensure animations run every time, even for repeated errors.
 
-Contributing
+CSS animation fadeInOut for smooth fade in/out.
 
-Fork the repository.
+Validation & Error Handling
 
-Create a new branch: git checkout -b feature-name
+Duplicate detection for phone and email.
 
-Make your changes and commit: git commit -m "Add feature"
+Prevents saving invalid or unchanged data when editing.
 
-Push to your branch: git push origin feature-name
+Routing
 
-Open a Pull Request.
+Vaadin Router handles /employees/new and /employees/:id.
+
+Redirects to employee list if an invalid ID is accessed.
+
+Responsive Grid
+
+Uses CSS grid and media queries for mobile-friendly layouts.
+
+Forms adapt dynamically for tablets and smartphones.
+
+Code Organization
+
+components/ for UI elements.
+
+utils/ for formatting, storage, and translations.
+
+CSS scoped to components with LitElement styles.

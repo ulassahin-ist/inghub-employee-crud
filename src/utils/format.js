@@ -32,3 +32,13 @@ export function formatPhone(phone) {
 
   return match ? `+(${country}) ${match[1]} ${match[2]} ${match[3]}` : phone;
 }
+
+/**
+ * Format a dates to dd/mm/yyyy
+ * @param {string} date - The date string
+ * @returns {string} Formatted date string
+ */
+export function formatDate(date) {
+  const [year, month, day] = date.split('-');
+  return `${day}/${month}/${year}`;
+}

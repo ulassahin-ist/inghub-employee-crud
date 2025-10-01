@@ -30,4 +30,11 @@ export const AppState = {
   set pageIndex(val) {
     localStorage.setItem('app_pageIndex', val);
   },
+  get lang() {
+    return localStorage.getItem('app_lang') || 'en';
+  },
+  set lang(val) {
+    localStorage.setItem('app_lang', val);
+    window.dispatchEvent(new CustomEvent('app-lang-changed', {detail: val}));
+  },
 };

@@ -1,5 +1,7 @@
 import {LitElement, html, css} from 'lit';
 import {Router} from '@vaadin/router';
+import {translations} from '../utils/language.js';
+import {AppState} from '../utils/storage.js';
 
 class NavigationMenu extends LitElement {
   static properties = {
@@ -9,7 +11,7 @@ class NavigationMenu extends LitElement {
 
   constructor() {
     super();
-    this.lang = document.documentElement.lang || 'en';
+    this.lang = AppState.lang;
     this.currentPath = window.location.pathname;
   }
 
@@ -58,10 +60,16 @@ class NavigationMenu extends LitElement {
     }
     .top-header button.active {
       color: var(--primary);
+      cursor: default;
     }
     .language {
       width: 24px;
       object-fit: contain;
+    }
+    @media (max-width: 600px) {
+      .top-header .buttons {
+        gap: 0;
+      }
     }
   `;
 
@@ -88,9 +96,17 @@ class NavigationMenu extends LitElement {
   }
 
   toggleLang() {
-    this.lang = this.lang === 'en' ? 'tr' : 'en';
+    AppState.lang = AppState.lang === 'en' ? 'tr' : 'en';
+    this.lang = AppState.lang;
     document.documentElement.lang = this.lang;
     this.requestUpdate();
+
+    window.dispatchEvent(
+      new CustomEvent('language-changed', {detail: this.lang})
+    );
+  }
+  get t() {
+    return translations[this.lang] || translations.en;
   }
 
   render() {
@@ -122,7 +138,7 @@ class NavigationMenu extends LitElement {
               <circle cx="18" cy="18" r="3" />
               <path d="m22 22-1.9-1.9" />
             </svg>
-            &nbsp Employees
+            &nbsp ${this.t.employees}
           </button>
 
           <button
@@ -143,15 +159,14 @@ class NavigationMenu extends LitElement {
               <path d="M5 12h14" />
               <path d="M12 5v14" />
             </svg>
-            &nbsp Add Employee
+            &nbsp ${this.t.addEmployee}
           </button>
 
           <button @click=${this.toggleLang}>
             <img
               class="language"
-              src="/src/assets/images/tr.png"
-              alt="tr"
-              class="logo"
+              src="/src/assets/images/${this.lang === 'en' ? 'tr' : 'en'}.png"
+              alt="${this.lang === 'en' ? 'tr' : 'en'}"
             />
           </button>
         </div>

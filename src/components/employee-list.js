@@ -1,8 +1,9 @@
 import {LitElement, html, css} from 'lit';
+import {translations} from '../utils/language.js';
 import {AppState, getEmployees, saveEmployees} from '../utils/storage.js';
 import {Router} from '@vaadin/router';
+import {formatDate} from '../utils/format.js';
 
-//deneme
 export class EmployeeList extends LitElement {
   static properties = {
     employees: {type: Array},
@@ -15,14 +16,28 @@ export class EmployeeList extends LitElement {
     showToast: {type: Boolean},
     message: {type: String},
     searchQuery: {type: String},
+    lang: {type: String},
   };
 
   static styles = css`
+    * {
+      max-height: 100vh;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      overflow: hidden;
+      height: 100vh;
+      height: 100dvh;
+    }
     :host {
       display: block;
       padding: 16px 32px;
       box-sizing: border-box;
     }
+
+    /* Buttons */
     button {
       border: none;
       background: none;
@@ -32,31 +47,39 @@ export class EmployeeList extends LitElement {
     button:hover {
       filter: brightness(1.1);
     }
-    .pageTitle {
+
+    /* Titles */
+    .page-title {
       font-weight: 400;
       margin-bottom: 20px;
       font-size: 1.6rem;
       color: var(--primary);
     }
+
+    /* Loading */
     .loading {
       text-align: center;
       padding: 2rem;
       font-style: italic;
       color: #666;
     }
+
+    /* Sub Header */
     .sub-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 16px;
       width: 100%;
+      box-sizing: border-box;
     }
-    .sub-header h2 {
+    .sub-header .page-title {
       margin: 0;
     }
     .sub-header .buttons {
       display: flex;
       gap: 8px;
+      align-items: center;
     }
     .sub-header button {
       cursor: pointer;
@@ -70,12 +93,22 @@ export class EmployeeList extends LitElement {
       cursor: default;
       color: var(--primary);
     }
+
+    /* Search Input */
     .search-input {
       padding: 6px 12px;
       border-radius: 6px;
       border: 1px solid #ccc;
-      font-size: 0.95rem;
-      margin-right: 16px;
+      font-size: 14px;
+      margin-left: auto;
+      margin-right: 30px;
+      height: 32px;
+      max-width: 100%;
+      width: 300px;
+    }
+    .search-input:focus {
+      border-color: var(--primary);
+      outline: none;
     }
 
     /* Table Stylings */
@@ -83,7 +116,7 @@ export class EmployeeList extends LitElement {
       overflow: hidden;
       border-radius: 8px;
       width: 100%;
-      max-height: calc(100vh - 210px);
+      max-height: calc(100vh - 220px);
       overflow: auto;
     }
     table {
@@ -91,6 +124,11 @@ export class EmployeeList extends LitElement {
       border-collapse: collapse;
       margin-bottom: 16px;
       background: var(--white);
+    }
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
     }
     th,
     td {
@@ -146,11 +184,11 @@ export class EmployeeList extends LitElement {
 
     /* Card Stylings */
     .cards-container {
-      padding: 20px 52px;
+      padding: 20px 20px;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 40px 100px;
-      max-height: calc(100vh - 225px);
+      gap: 3vh 6vw;
+      max-height: calc(100vh - 200px);
       overflow: auto;
     }
     .employee-card {
@@ -179,6 +217,8 @@ export class EmployeeList extends LitElement {
     .employee-card .actions {
       display: flex;
       flex-direction: row;
+      justify-content: flex-start;
+      gap: 8px;
     }
     .employee-card .actions button {
       padding: 10px 20px;
@@ -188,6 +228,9 @@ export class EmployeeList extends LitElement {
       font-weight: 500;
       display: flex;
       margin-right: 8px;
+      height: 40px;
+      min-width: 40px;
+      flex-shrink: 0;
     }
     .employee-card .actions button svg {
       width: 20px;
@@ -204,7 +247,6 @@ export class EmployeeList extends LitElement {
     .pagination {
       justify-content: center;
       display: flex;
-      flex-wrap: wrap;
       gap: 4px;
       position: fixed;
       bottom: 20px;
@@ -225,7 +267,6 @@ export class EmployeeList extends LitElement {
       font-weight: 400;
       font-size: 14px;
     }
-
     .nav-icon {
       width: 20px;
       height: 32px;
@@ -263,14 +304,6 @@ export class EmployeeList extends LitElement {
       opacity: 0;
       animation: fadeIn 0.2s forwards;
     }
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
     .confirm-box {
       background: white;
       padding: 20px;
@@ -283,16 +316,6 @@ export class EmployeeList extends LitElement {
       transform: translateY(-10px);
       animation: slideIn 0.2s forwards;
       position: relative;
-    }
-    @keyframes slideIn {
-      from {
-        transform: translateY(-10px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
     }
     .confirm-header {
       display: flex;
@@ -339,6 +362,26 @@ export class EmployeeList extends LitElement {
       border: 1px solid var(--secondary);
     }
 
+    /* Animations */
+    @keyframes slideIn {
+      from {
+        transform: translateY(-10px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
     /* Toast Stylings */
     .toast {
       position: fixed;
@@ -353,6 +396,94 @@ export class EmployeeList extends LitElement {
       opacity: 0.9;
       font-weight: bold;
     }
+
+    /* Tablet */
+    @media (max-width: 1300px) {
+      .cards-container {
+        padding: 10px;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        max-height: calc(100vh - 250px);
+        overflow: auto;
+      }
+    }
+
+    /* Large Phones*/
+    @media (max-width: 900px) {
+      .employee-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .employee-card .actions {
+        flex-direction: column;
+        align-items: center;
+      }
+      .employee-card .actions button {
+        width: 95%;
+        min-width: unset;
+        justify-content: center;
+      }
+    }
+
+    /* Phones */
+    @media (max-width: 700px) {
+      :host {
+        padding: 0;
+      }
+      .table-container,
+      .cards-container {
+        max-height: calc(100vh - 250px);
+      }
+      .sub-header {
+      }
+
+      .search-input {
+        width: 100%;
+        margin-right: 0;
+      }
+      table th,
+      table td {
+        padding: 10px 5px;
+        font-size: 12px;
+      }
+      .employee-card {
+        padding: 12px;
+        font-size: 14px;
+      }
+
+      .employee-card div {
+        font-size: 15px;
+      }
+
+      .confirm-box {
+        width: 90%;
+      }
+      .actions button {
+        margin-right: 0;
+      }
+      .sub-header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      .sub-header .buttons {
+        width: 30%;
+        flex: 1 1 30%;
+        order: 1;
+        align-items: right;
+        justify-content: right;
+      }
+      .page-title {
+        width: 70%;
+        flex: 1 1 70%;
+        order: 1;
+      }
+      .search-input {
+        margin-top: 10px;
+        width: 100%;
+        order: 2;
+      }
+    }
   `;
 
   constructor() {
@@ -365,6 +496,7 @@ export class EmployeeList extends LitElement {
     this.showToast = false;
     this.message = '';
     this.searchQuery = '';
+    this.lang = AppState.lang || 'en';
 
     this.view = AppState.view || 'list';
     this.currentPage = AppState.pageIndex || 1;
@@ -377,6 +509,23 @@ export class EmployeeList extends LitElement {
       if (this.currentPage > totalPages) this.currentPage = totalPages;
       this.isLoading = false;
     }, 200);
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener('language-changed', this.onLanguageChanged);
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener('language-changed', this.onLanguageChanged);
+    super.disconnectedCallback();
+  }
+
+  onLanguageChanged = (e) => {
+    this.lang = e.detail;
+  };
+
+  get t() {
+    return translations[this.lang] || translations.en;
   }
 
   get filteredEmployees() {
@@ -417,7 +566,7 @@ export class EmployeeList extends LitElement {
     this.employeeSelected = null;
     this.confirmAction = null;
 
-    this.message = 'Employee was deleted successfully!';
+    this.message = this.t.employeeDeleted;
     this.showToast = true;
     setTimeout(() => (this.showToast = false), 1200);
 
@@ -438,8 +587,7 @@ export class EmployeeList extends LitElement {
     } else if (this.confirmAction === 'edit') {
       Router.go(`/employees/${this.employeeSelected.id}`);
       this.showConfirmModal = false;
-      this.message = 'Employee edit confirmed!';
-      this.showToast = true;
+
       this.employeeSelected = null;
       this.confirmAction = null;
       setTimeout(() => (this.showToast = false), 1200);
@@ -557,10 +705,11 @@ export class EmployeeList extends LitElement {
   renderSubHeader() {
     return html`
       <div class="sub-header">
-        <h2 class="pageTitle">Employee List</h2>
+        <div class="page-title">${this.t.employeeList}</div>
+
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="${this.t.search}..."
           @input=${this.handleSearch}
           class="search-input"
         />
@@ -625,14 +774,14 @@ export class EmployeeList extends LitElement {
     const {firstName, lastName} = this.employeeSelected;
     const actionText =
       this.confirmAction === 'delete'
-        ? `Selected Employee record of ${firstName} ${lastName} will be deleted`
-        : `Do you want to edit the record of ${firstName} ${lastName}?`;
+        ? `${this.t.confirmdel1} ${firstName} ${lastName} ${this.t.confirmdel2}`
+        : `${this.t.confirmEdit} ${firstName} ${lastName}?`;
 
     return html`
       <div class="confirm-overlay">
         <div class="confirm-box">
           <div class="confirm-header">
-            Are you sure?
+            ${this.t.areYouSure}
             <button
               class="modal-close-btn"
               @click=${() => (this.showConfirmModal = false)}
@@ -655,13 +804,13 @@ export class EmployeeList extends LitElement {
           <div class="confirm-message">${actionText}</div>
           <div class="confirm-buttons">
             <button class="proceed" @click=${this.proceedConfirm.bind(this)}>
-              Proceed
+              ${this.t.proceed}
             </button>
             <button
               class="cancel"
               @click=${() => (this.showConfirmModal = false)}
             >
-              Cancel
+              ${this.t.cancel}
             </button>
           </div>
         </div>
@@ -682,15 +831,15 @@ export class EmployeeList extends LitElement {
           <thead>
             <tr>
               <th><input type="checkbox" @change=${this.toggleAll} /></th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Employment Date</th>
-              <th>Birth Date</th>
-              <th>Phone</th>
-              <th>Email</th>
-              <th>Department</th>
-              <th>Position</th>
-              <th>Actions</th>
+              <th>${this.t.firstName}</th>
+              <th>${this.t.lastName}</th>
+              <th>${this.t.employmentDate}</th>
+              <th>${this.t.birthDate}</th>
+              <th>${this.t.phone}</th>
+              <th>${this.t.email}</th>
+              <th>${this.t.department}</th>
+              <th>${this.t.position}</th>
+              <th>${this.t.actions}</th>
             </tr>
           </thead>
           <tbody>
@@ -706,8 +855,8 @@ export class EmployeeList extends LitElement {
                   </td>
                   <td>${emp.firstName}</td>
                   <td>${emp.lastName}</td>
-                  <td>${emp.employmentDate}</td>
-                  <td>${emp.birthDate}</td>
+                  <td>${formatDate(emp.employmentDate)}</td>
+                  <td>${formatDate(emp.birthDate)}</td>
                   <td>${emp.phone}</td>
                   <td>${emp.email}</td>
                   <td>${emp.department}</td>
@@ -774,14 +923,20 @@ export class EmployeeList extends LitElement {
         ${pageEmployees.map(
           (emp) => html`
             <div class="employee-card">
-              <div><span>First Name:</span> ${emp.firstName}</div>
-              <div><span>Last Name:</span> ${emp.lastName}</div>
-              <div><span>Employment Date:</span> ${emp.employmentDate}</div>
-              <div><span>Birth Date:</span> ${emp.birthDate}</div>
-              <div><span>Phone:</span> ${emp.phone}</div>
-              <div><span>Email:</span> ${emp.email}</div>
-              <div><span>Department:</span> ${emp.department}</div>
-              <div><span>Position:</span> ${emp.position}</div>
+              <div><span>${this.t.firstName}:</span> ${emp.firstName}</div>
+              <div><span>${this.t.lastName}:</span> ${emp.lastName}</div>
+              <div>
+                <span>${this.t.employmentDate}:</span> ${formatDate(
+                  emp.employmentDate
+                )}
+              </div>
+              <div>
+                <span>${this.t.birthDate}:</span> ${formatDate(emp.birthDate)}
+              </div>
+              <div><span>${this.t.phone}:</span> ${emp.phone}</div>
+              <div><span>${this.t.email}:</span> ${emp.email}</div>
+              <div><span>${this.t.department}:</span> ${emp.department}</div>
+              <div><span>${this.t.position}:</span> ${emp.position}</div>
               <div class="actions">
                 <button class="edit" @click=${() => this.editEmployee(emp)}>
                   <svg
@@ -799,7 +954,7 @@ export class EmployeeList extends LitElement {
                       d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
                     />
                   </svg>
-                  &nbsp Edit
+                  &nbsp ${this.t.edit}
                 </button>
                 <button class="delete" @click=${() => this.requestDelete(emp)}>
                   <svg
@@ -818,7 +973,7 @@ export class EmployeeList extends LitElement {
                     <path d="M3 6h18" />
                     <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
                   </svg>
-                  &nbsp Delete
+                  &nbsp ${this.t.delete}
                 </button>
               </div>
             </div>
@@ -831,9 +986,9 @@ export class EmployeeList extends LitElement {
 
   render() {
     if (this.isLoading)
-      return html`<div class="loading">Loading employees...</div>`;
+      return html`<div class="loading">${this.t.loading}...</div>`;
     if (this.employees.length === 0)
-      return html`<div>No employees found.</div>`;
+      return html`<div>${this.t.noEmployee}.</div>`;
 
     return html`
       ${this.renderSubHeader()}
